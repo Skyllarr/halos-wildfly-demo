@@ -4,11 +4,11 @@
     <authentication-client xmlns="urn:elytron:client:1.7">
         <key-stores>
             <key-store name="truststore" type="JKS">
-                <file name="/Users/hpehl/dev/hal/halos/wildfly-demo/client.truststore.jks"/>
+                <file name="client.truststore.jks"/>
                 <key-store-clear-password password="_HRW97eMN337GuyzMKWecW9pgnP_QZgx" />
             </key-store>
             <key-store name="keystore" type="JKS">
-                <file name="/Users/hpehl/dev/hal/halos/wildfly-demo/client.keystore.jks"/>
+                <file name="client.keystore.jks"/>
                 <key-store-clear-password password="_HRW97eMN337GuyzMKWecW9pgnP_QZgx" />
             </key-store>
         </key-stores>
