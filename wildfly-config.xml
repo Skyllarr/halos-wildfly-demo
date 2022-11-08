@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration>
+    <authentication-client xmlns="urn:elytron:client:1.7">
+        <key-stores>
+            <key-store name="truststore" type="JKS">
+                <file name="/Users/hpehl/dev/hal/halos/wildfly-demo/client.truststore.jks"/>
+                <key-store-clear-password password="_HRW97eMN337GuyzMKWecW9pgnP_QZgx" />
+            </key-store>
+            <key-store name="keystore" type="JKS">
+                <file name="/Users/hpehl/dev/hal/halos/wildfly-demo/client.keystore.jks"/>
+                <key-store-clear-password password="_HRW97eMN337GuyzMKWecW9pgnP_QZgx" />
+            </key-store>
+        </key-stores>
+        <ssl-contexts>
+            <ssl-context name="client-context">
+                <trust-store key-store-name="truststore"/>
+                <key-store-ssl-certificate key-store-name="keystore">
+                    <key-store-clear-password password="_HRW97eMN337GuyzMKWecW9pgnP_QZgx" />
+                </key-store-ssl-certificate>
+                <providers>
+                    <global/>
+                </providers>
+            </ssl-context>
+        </ssl-contexts>
+        <ssl-context-rules>
+            <rule use-ssl-context="client-context" />
+        </ssl-context-rules>
+    </authentication-client>
+</configuration>
