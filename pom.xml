@@ -36,6 +36,19 @@
 	<build>
 		<plugins>
 			<plugin>
+			  	<groupId>org.apache.maven.plugins</groupId>
+			  	<artifactId>maven-jar-plugin</artifactId>
+			  	<version>3.3.0</version>
+			  	<configuration>
+					<archive>
+				  		<manifest>
+							<addClasspath>true</addClasspath>
+							<mainClass>org.wildfly.halos.App</mainClass>
+				  		</manifest>
+					</archive>
+			  	</configuration>
+			</plugin>
+			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-shade-plugin</artifactId>
 				<version>3.3.0</version>
@@ -43,11 +56,10 @@
 					<transformers>
 						<transformer
                                 implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-							<mainClass>org.wildfly.halos.App</mainClass>
 						</transformer>
 					</transformers>
-					<shadedArtifactAttached>true</shadedArtifactAttached>
-					<shadedArtifactId>application</shadedArtifactId>
+					<createDependencyReducedPom>false</createDependencyReducedPom>
+					<shadedArtifactAttached>false</shadedArtifactAttached>
 				</configuration>
 				<executions>
 					<execution>
