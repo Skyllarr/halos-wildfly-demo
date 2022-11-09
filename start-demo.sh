@@ -83,4 +83,4 @@ ${DOCKER} run \
   --name halos-wildfly-demo \
   --publish 8080:8080 \
   --publish 9993:9993 \
-  quay.io/hpehl/wildfly-halos-demo ${WILDFLY_PARAM-}
+  wildfly-halos-demo ${WILDFLY_PARAM-}

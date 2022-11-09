@@ -2,21 +2,21 @@ FROM jboss/base-jdk:11
 
 LABEL maintainer="Harald Pehl <hpehl@redhat.com>"
 
-ENV JBOSS_HOME /opt/jboss/wildfly
 COPY wildfly-27.0.0.Beta1.tar.gz /
 
 USER root
 
 RUN tar xf /wildfly-27.0.0.Beta1.tar.gz --directory=/ \
-    && mv /wildfly-27.0.0.Beta1 $JBOSS_HOME \
+    && mv /wildfly-27.0.0.Beta1 /opt/jboss/wildfly \
     && rm /wildfly-27.0.0.Beta1.tar.gz
 
-ADD server.* ${JBOSS_HOME}/standalone/configuration/
-ADD standalone-full.xml ${JBOSS_HOME}/standalone/configuration/
-ADD thread-racing.war ${JBOSS_HOME}/standalone/deployments/
+ADD server.* /opt/jboss/wildfly/standalone/configuration/
+ADD standalone-full.xml /opt/jboss/wildfly/standalone/configuration/
+ADD thread-racing.war /opt/jboss/wildfly/standalone/deployments/
 
-RUN chown -R jboss:0 ${JBOSS_HOME} \
-    && chmod -R g+rw ${JBOSS_HOME}
+RUN /opt/jboss/wildfly/bin/add-user.sh -u admin -p admin --silent
+RUN chown -R jboss:0 /opt/jboss/wildfly \
+    && chmod -R g+rw /opt/jboss/wildfly
 
 USER jboss
 
