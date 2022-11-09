@@ -73,5 +73,5 @@ setup_colors
 
 ${DOCKER} build \
   --platform linux/amd64 \
-  --tag wildfly-halos-demo \
+  --tag quay.io/hpehl/wildfly-halos-demo \
   .
