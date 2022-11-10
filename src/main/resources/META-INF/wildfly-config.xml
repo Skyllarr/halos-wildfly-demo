@@ -2,6 +2,19 @@
 
 <configuration>
     <authentication-client xmlns="urn:elytron:client:1.7">
+        <authentication-configurations>
+            <configuration name="default-config" >
+                <set-authorization-name name="admin"/>
+                <set-user-name name="admin"/>
+                <credentials>
+                    <clear-password password="admin" />
+                </credentials>
+                <sasl-mechanism-selector selector="DIGEST-MD5"/>
+                <providers>
+                    <use-service-loader />
+                </providers>
+            </configuration>
+        </authentication-configurations>
         <key-stores>
             <key-store name="truststore" type="JKS">
                 <resource name="client.truststore.jks"/>
@@ -23,6 +36,9 @@
                 </providers>
             </ssl-context>
         </ssl-contexts>
+        <authentication-rules>
+            <rule use-configuration="default-config"> </rule>
+        </authentication-rules>
         <ssl-context-rules>
             <rule use-ssl-context="client-context" />
         </ssl-context-rules>

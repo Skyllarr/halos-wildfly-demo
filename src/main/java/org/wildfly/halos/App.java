@@ -1,9 +1,8 @@
 package org.wildfly.halos;
 
-import java.security.NoSuchAlgorithmException;
+import java.net.URI;
+import java.nio.file.Paths;
 import java.security.Security;
-
-import javax.net.ssl.SSLContext;
 
 import org.jboss.as.controller.client.ModelControllerClient;
 import org.jboss.as.controller.client.ModelControllerClientConfiguration;
@@ -24,13 +23,13 @@ public class App {
         }
     }
 
-    static ModelControllerClient createClient() throws NoSuchAlgorithmException {
-        SSLContext sslContext = SSLContext.getDefault();
+    static ModelControllerClient createClient() {
         ModelControllerClientConfiguration configuration = new ModelControllerClientConfiguration.Builder()
+                .setAuthenticationConfigUri(URI.create("file://" + Paths.get("src/main/resources/META-INF/wildfly-config.xml").toAbsolutePath()))
                 .setProtocol("remote+https")
                 .setHostName("localhost")
                 .setPort(9993)
-                .setSslContext(sslContext)
+                .setConnectionTimeout(100000000)
                 .build();
         return ModelControllerClient.Factory.create(configuration);
     }
