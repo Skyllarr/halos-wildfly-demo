@@ -25,12 +25,12 @@ public class App {
     }
 
     static ModelControllerClient createClient() throws NoSuchAlgorithmException {
-        SSLContext sslContext = SSLContext.getDefault();
+//        SSLContext sslContext = SSLContext.getDefault();
         ModelControllerClientConfiguration configuration = new ModelControllerClientConfiguration.Builder()
                 .setProtocol("remote+https")
                 .setHostName("localhost")
                 .setPort(9993)
-                .setSslContext(sslContext)
+//                .setSslContext(sslContext)
                 .build();
         return ModelControllerClient.Factory.create(configuration);
     }

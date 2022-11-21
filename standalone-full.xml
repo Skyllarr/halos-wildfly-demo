@@ -243,7 +243,8 @@
             <security-domains>
                 <security-domain name="ManagementDomain" default-realm="ManagementRealm" permission-mapper="default-permission-mapper">
                     <realm name="ManagementRealm" role-decoder="groups-to-roles"/>
-                    <realm name="local" role-mapper="super-user-mapper"/>
+                    <realm name="local" role-mapper="super-user-mapper"/>                    
+                    <realm name="key-store-realm"/>
                 </security-domain>
                 <security-domain name="ApplicationDomain" default-realm="ApplicationRealm" permission-mapper="default-permission-mapper">
                     <realm name="ApplicationRealm" role-decoder="groups-to-roles"/>
@@ -251,6 +252,7 @@
                 </security-domain>
             </security-domains>
             <security-realms>
+                <key-store-realm name="key-store-realm" key-store="twoWayTS"/>
                 <identity-realm name="local" identity="$local"/>
                 <properties-realm name="ApplicationRealm">
                     <users-properties path="application-users.properties" relative-to="jboss.server.config.dir" digest-realm-name="ApplicationRealm"/>
@@ -262,6 +264,8 @@
                 </properties-realm>
             </security-realms>
             <mappers>
+                <constant-realm-mapper name="key-store-realm" realm-name="key-store-realm"/>
+                <x500-attribute-principal-decoder name="x500-decoder" attribute-name="CN" maximum-segments="1"/>
                 <simple-permission-mapper name="default-permission-mapper" mapping-mode="first">
                     <permission-mapping>
                         <principal name="anonymous"/>
@@ -309,6 +313,7 @@
                 <sasl-authentication-factory name="management-sasl-authentication" sasl-server-factory="configured" security-domain="ManagementDomain">
                     <mechanism-configuration>
                         <mechanism mechanism-name="JBOSS-LOCAL-USER" realm-mapper="local"/>
+                        <mechanism mechanism-name="EXTERNAL" pre-realm-principal-transformer="x500-decoder" realm-mapper="key-store-realm"/>
                         <mechanism mechanism-name="DIGEST-MD5">
                             <mechanism-realm realm-name="ManagementRealm"/>
                         </mechanism>
